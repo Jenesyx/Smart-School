@@ -4,7 +4,7 @@ const anwesenheitDB = mySql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "anwesenheit2",
+  database: "anwesenheit",
 });
 
 module.exports = anwesenheitDB;

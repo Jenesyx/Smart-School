@@ -1,46 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 function Login() {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [teacherData, setTeacherData] = useState([]);
+  const [studentData, setStudentData] = useState([]);
+  const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    axios.post('http://localhost:4000/api/Teacher/login', {
-      username: username,
-      password: password,
-    })
+  useEffect(() => {
+    axios.get('http://localhost:4000/api/Student')
       .then((response) => {
-        const userType = response.data.userType;
-        if (userType === 'teacher') {
-          navigate('/homepageadmin');
-        } else {
-          console.error('Unexpected user type:', userType);
-        }
+        setStudentData(response.data);
       })
       .catch((error) => {
-        console.error('Error during teacher login:', error);
+        console.error('Error fetching "Student" data:', error);
       });
 
-    axios.post('http://localhost:4000/api/Student/login', {
-      username: username,
-      password: password,
-    })
+    axios.get('http://localhost:4000/api/Teacher')
       .then((response) => {
-        const userType = response.data.userType;
-        if (userType === 'student') {
-          navigate('/homepage');
-        } else {
-          console.error('Unexpected user type:', userType);
-        }
+        setTeacherData(response.data);
       })
       .catch((error) => {
-        console.error('Error during student login:', error);
+        console.error('Error fetching "Teacher" data:', error);
       });
-  };
+  },[]);
+
+  const checkInfo = ()=> {
+    studentData.forEach((item) => {
+      console.log(item.Nachname)
+      console.log(item.Password)
+      if(item.Nachname === username && item.Password === password){
+        setAuthenticated(true);
+        navigate('/HomePage')
+      }
+      else {
+        console.log('wrong info!')
+      }
+    })
+
+    teacherData.forEach((item) => {
+      if(item.Username === username && item.Password === password){
+        setAuthenticated(true);
+        navigate('/HomePageAdmin')
+      }
+      else {
+        console.log('wrong info!')
+      }
+    })
+  }
+
+  useEffect(() => {
+    if (authenticated) {
+      navigate('/HomePage'); // or '/HomePageAdmin' based on your requirements
+    }
+  }, [authenticated, navigate]);
 
   return (
     <div className='login-holder'>
@@ -52,13 +70,13 @@ function Login() {
       <div className="inputs">
         <div className="username">
           <p>Username or Lastname</p>
-          <input type="text" placeholder='Bidkhori' onChange={(e) => setUsername(e.target.value)} />
+          <input type="text" placeholder='' onChange={(e) => setUsername(e.target.value)} />
         </div>
         <div className="password">
           <p>Password</p>
           <input type="password" onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <div className="button" onClick={handleLogin}>
+        <div className="button" onClick={checkInfo}>
           <p>Sign in</p>
         </div>
       </div>
