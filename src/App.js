@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Login from './Pages/Login/Login'
 import HomePage from './Pages/HomePage/HomePage'
 import HomePageAdmin from './Pages/HomePageAdmin/HomePageAdmin'
@@ -14,12 +14,16 @@ const PrivateRoute = ({ element, authenticated, ...props }) => {
 };
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
 
   return (
     <div className="App">
       <Router>
         <Routes>
+        <Route
+            path="/"
+            element={<PrivateRoute authenticated={authenticated} element={<HomePage />} />}
+          />
           <Route
             path="/login"
             element={<Login setAuthenticated={setAuthenticated} />}

@@ -8,12 +8,6 @@ import Status from '../../Components/Status/Status'
 import DReport from '../../Components/DReport/DReport'
 import menu from '../../Images/menu2.png'
 import close from '../../Images/Close.png'
-// import SideBar from '../../components/Sidebar/SideBar'
-// import NavBar from '../../components/NavBar/NavBar'
-// import Status from '../../components/Status/Status'
-// import DReport from '../../components/DReport/DReport'
-// import menu from '../../images/menu2.png'
-// import close from '../../images/Close.png'
 
 function HomePage() {
 
@@ -44,13 +38,13 @@ function HomePage() {
         console.error('Error fetching "main" data:', error);
       });
 
-    axios.get('http://localhost:4000/api/schueler')
+    axios.get('http://localhost:4000/api/Student')
       .then((response) => {
         setDataSchueler(response.data);
-        console.log('Data for "schueler":', response.data);
+        console.log('Data for "Student":', response.data);
       })
       .catch((error) => {
-        console.error('Error fetching "schueler" data:', error);
+        console.error('Error fetching "Student" data:', error);
       });
     axios.get('http://localhost:4000/api/anwesenheit')
       .then((response) => {

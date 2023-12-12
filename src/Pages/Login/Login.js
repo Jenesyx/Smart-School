@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import HomePage from '../HomePage/HomePage';
+import App from '../../App';
 
 function Login() {
 
@@ -56,12 +58,13 @@ function Login() {
 
   useEffect(() => {
     if (authenticated) {
-      navigate('/HomePage'); // or '/HomePageAdmin' based on your requirements
+      navigate('/HomePage');
     }
   }, [authenticated, navigate]);
 
   return (
     <div className='login-holder'>
+      <div className='yoyo'>      </div>
       <div className='login'>Login</div>
       <div className="welcome">
         <p>Welcome to Pro Edupage!</p>
