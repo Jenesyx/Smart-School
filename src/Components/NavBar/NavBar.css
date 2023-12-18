@@ -29,8 +29,9 @@
     line-height: 30px;
 }
 
-.welcome .welcometitle {
-    font-size: 21px !important;
+.welcome .welcometitle p {
+    line-height: 45px;
+    font-size: 21px;
     font-weight: 600;
 }
 

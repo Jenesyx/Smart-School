@@ -3,13 +3,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-function Login({ updateAppAuthenticated, updateUsername }{ updateAppAuthenticated, updateUsername, updateId }) {
+function Login({ updateAppAuthenticated, updateUsername, updateId }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [teacherData, setTeacherData] = useState([]);
   const [studentData, setStudentData] = useState([]);
-  const [isHidden, setIsHidden] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
@@ -32,35 +31,37 @@ function Login({ updateAppAuthenticated, updateUsername }{ updateAppAuthenticate
       });
   },[]);
 
-  const checkInfo = ()=> {
+  const checkInfo = () => {
+    let studentMatch = false;
     studentData.forEach((item) => {
-      console.log(item.Nachname)
-      console.log(item.Password)
-      if(item.Nachname === username && item.Password === password){
+      if (item.Nachname === username && item.Password === password) {
         setAuthenticated(true);
-        navigate('/HomePage')
+        updateAppAuthenticated(true);
+        updateUsername(username)
+        updateId(item.Schueler_ID)
+        console.log('Student correct');
+        navigate('/HomePage');
       }
-      else {
-        console.log('wrong info!')
-      }
-    })
+    });
 
-    teacherData.forEach((item) => {
-      if(item.Username === username && item.Password === password){
-        setAuthenticated(true);
-        navigate('/HomePageAdmin')
-      }
-      else {
-        console.log('wrong info!')
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (authenticated) {
-      navigate('/HomePage'); // or '/HomePageAdmin' based on your requirements
+    if (!studentMatch) {
+      teacherData.forEach((item) => {
+        if (item.Username === username && item.Password === password) {
+          setAuthenticated(true);
+          updateAppAuthenticated(true);
+          updateUsername(username)
+          updateId(item.Lehrer_ID)
+          console.log('Teacher correct');
+          navigate('/HomePageAdmin');
+        }
+      });
     }
-  }, [authenticated, navigate]);
+
+    if (!studentMatch) {
+      setIsHidden(!isHidden)
+      console.log('Wrong info!');
+    }
+  };
 
   return (
     <div className='login-holder'>
