@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import HomePage from '../HomePage/HomePage';
-import App from '../../App';
 
-function Login() {
+function Login({ updateAppAuthenticated, updateUsername }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [teacherData, setTeacherData] = useState([]);
   const [studentData, setStudentData] = useState([]);
+  const [isHidden, setIsHidden] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
 
@@ -32,39 +31,38 @@ function Login() {
       });
   },[]);
 
-  const checkInfo = ()=> {
+  const checkInfo = () => {
+    let studentMatch = false;
     studentData.forEach((item) => {
-      console.log(item.Nachname)
-      console.log(item.Password)
-      if(item.Nachname === username && item.Password === password){
+      if (item.Nachname === username && item.Password === password) {
         setAuthenticated(true);
-        navigate('/HomePage')
+        updateAppAuthenticated(true);
+        updateUsername(username)
+        console.log('Student correct');
+        navigate('/HomePage');
       }
-      else {
-        console.log('wrong info!')
-      }
-    })
+    });
 
-    teacherData.forEach((item) => {
-      if(item.Username === username && item.Password === password){
-        setAuthenticated(true);
-        navigate('/HomePageAdmin')
-      }
-      else {
-        console.log('wrong info!')
-      }
-    })
-  }
-
-  useEffect(() => {
-    if (authenticated) {
-      navigate('/HomePage');
+    if (!studentMatch) {
+      teacherData.forEach((item) => {
+        if (item.Username === username && item.Password === password) {
+          setAuthenticated(true);
+          updateAppAuthenticated(true);
+          updateUsername(username)
+          console.log('Teacher correct');
+          navigate('/HomePageAdmin');
+        }
+      });
     }
-  }, [authenticated, navigate]);
+
+    if (!studentMatch) {
+      setIsHidden(!isHidden)
+      console.log('Wrong info!');
+    }
+  };
 
   return (
     <div className='login-holder'>
-      <div className='yoyo'>      </div>
       <div className='login'>Login</div>
       <div className="welcome">
         <p>Welcome to Pro Edupage!</p>
@@ -78,6 +76,9 @@ function Login() {
         <div className="password">
           <p>Password</p>
           <input type="password" onChange={(e) => setPassword(e.target.value)} />
+          <p className={`err ${isHidden ? 'highlight' : ''}`}>Username or Password is wrong</p>
+        </div>
+        <div>
         </div>
         <div className="button" onClick={checkInfo}>
           <p>Sign in</p>

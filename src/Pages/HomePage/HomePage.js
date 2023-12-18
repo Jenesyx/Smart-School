@@ -9,7 +9,8 @@ import DReport from '../../Components/DReport/DReport'
 import menu from '../../Images/menu2.png'
 import close from '../../Images/Close.png'
 
-function HomePage() {
+
+function HomePage(props) {
 
   const [dataMain, setDataMain] = useState([])
   const [dataCount, setDataCount] = useState([])
@@ -63,6 +64,7 @@ function HomePage() {
         console.error('Error fetching "count" data:', error);
       });
   }
+
 
   dataMain.map((item) => {
     if (item.Ankunftszeit == null) {
@@ -120,7 +122,7 @@ function HomePage() {
         <SideBar />
       </div>
       <div className='content-holder'>
-        <NavBar />
+        <NavBar mainUsername={props.mainUsername} />
         <Status
           dataMain={dataMain}
           dataCount={dataCount}

@@ -21,5 +21,3 @@ function SideBar() {
 }
 
 export default SideBar
-
-// Designed & Developed with <3 and C@f3 by AliJenesyx

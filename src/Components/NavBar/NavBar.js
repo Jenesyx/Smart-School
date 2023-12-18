@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './NavBar.css'
 
 function NavBar(props) {
-
   return (
     <>
         <div className='nav-holder'>
             <div className='nav'>
                 <div className="user">
-                    <p>User : {props.hello}</p>
+                    <p>User : {props.mainUsername}</p>
                 </div>
                 <div className="welcome">
                     <p className='nav-mobile'>Hello Admin</p>

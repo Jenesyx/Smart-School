@@ -1,9 +1,3 @@
-.yoyo {
-    position: absolute;
-    display: none;
-    visibility: hidden;
-}
-
 .login-holder {
     margin: 8% auto;
     width: 450px;
@@ -60,7 +54,21 @@
 }
 
 .password {
+    position: relative;
     margin-top: 25px;
+}
+
+.password .err {
+    visibility: hidden;
+    font-weight: 100;
+    font-style: italic;
+    bottom: -18px;
+    position: absolute;
+    color: red;
+}
+
+.password .err.highlight {
+    visibility: visible;
 }
 
 .button {
