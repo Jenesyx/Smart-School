@@ -18,10 +18,11 @@
 .status .title {
     width: 100%;
     text-align: left;
-    font-size: 22px;
+    font-size: 23px;
+    font-weight: 500;
     position: relative;
     left: 40px;
-    top: 20px;
+    top: 25px;
 }
 
 .user-status {

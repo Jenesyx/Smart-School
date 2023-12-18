@@ -29,8 +29,9 @@
     line-height: 30px;
 }
 
-.welcome p {
-    font-size: 18px !important;
+.welcome .welcometitle {
+    font-size: 21px !important;
+    font-weight: 600;
 }
 
 .nav-mobile {

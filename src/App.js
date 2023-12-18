@@ -14,23 +14,52 @@ const PrivateRoute = ({ element, authenticated, ...props }) => {
 };
 
 function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [appAuthenticated, setAppAuthenticated] = useState(false);
+  const [username, setUsername] = useState('')
+  const [userId, setUserId] = useState('')
+
+  const updateAppAuthenticated = (value) => {
+    setAppAuthenticated(value);
+  };
+
+  const updateUsername = (value) => {
+    setUsername(value)
+  }
+
+  const updateId = (value) => {
+    setUserId(value)
+  }
 
   return (
     <div className="App">
       <Router>
         <Routes>
           <Route
-            path="/login"
-            element={<Login setAuthenticated={setAuthenticated} />}
-          />
-          <Route
             path="/HomePage"
-            element={<PrivateRoute authenticated={authenticated} element={<HomePage />} />}
+            element={
+              <PrivateRoute
+
+                authenticated={appAuthenticated}
+                element={<HomePage mainUsername={username} userId={userId}/>}
+              />
+            }
           />
           <Route
             path="/HomePageAdmin"
-            element={<PrivateRoute authenticated={authenticated} element={<HomePageAdmin />} />}
+            element={
+              <PrivateRoute
+                authenticated={appAuthenticated}
+                element={<HomePageAdmin mainUsername={username} />}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={<Login updateAppAuthenticated={updateAppAuthenticated} updateUsername={updateUsername} updateId={updateId} />}
+          />
+          <Route
+            path="/"
+            element={<Login updateAppAuthenticated={updateAppAuthenticated} updateUsername={updateUsername} updateId={updateId}/>}
           />
         </Routes>
       </Router>

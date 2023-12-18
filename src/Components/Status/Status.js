@@ -44,5 +44,3 @@ function Status(props) {
 }
 
 export default Status
-
-// Designed & Developed with <3 and C@f3 by AliJenesyx

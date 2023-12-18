@@ -46,5 +46,3 @@ function DReport(props) {
 }
 
 export default DReport
-
-// Designed & Developed with <3 and C@f3 by AliJenesyx
