@@ -3,12 +3,13 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-function Login({ updateAppAuthenticated, updateUsername, updateId }) {
+function Login({ updateAppAuthenticated, updateUsername }{ updateAppAuthenticated, updateUsername, updateId }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [teacherData, setTeacherData] = useState([]);
   const [studentData, setStudentData] = useState([]);
+  const [isHidden, setIsHidden] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
@@ -31,46 +32,35 @@ function Login({ updateAppAuthenticated, updateUsername, updateId }) {
       });
   },[]);
 
-  const checkInfo = () => {
-
-    let studentMatch = false;
-    let foundStudent = null;
-
+  const checkInfo = ()=> {
     studentData.forEach((item) => {
-      if (item.Nachname === username && item.Password === password) {
-        studentMatch = true;
-        foundStudent = item;
+      console.log(item.Nachname)
+      console.log(item.Password)
+      if(item.Nachname === username && item.Password === password){
         setAuthenticated(true);
-        updateAppAuthenticated(true);
-        updateUsername(username)
-        updateId(item.Schueler_ID)
-        console.log('Student correct');
-        navigate('/HomePage');
+        navigate('/HomePage')
       }
-    });
+      else {
+        console.log('wrong info!')
+      }
+    })
 
-    if (!studentMatch) {
-      teacherData.forEach((item) => {
-        if (item.Username === username && item.Password === password) {
-          setAuthenticated(true);
-          updateAppAuthenticated(true);
-          updateUsername(username)
-          updateId(item.Lehrer_ID)
-          console.log('Teacher correct');
-          navigate('/HomePageAdmin');
-        }
-      });
-    }
+    teacherData.forEach((item) => {
+      if(item.Username === username && item.Password === password){
+        setAuthenticated(true);
+        navigate('/HomePageAdmin')
+      }
+      else {
+        console.log('wrong info!')
+      }
+    })
+  }
 
-    if (!studentMatch) {
-      setIsHidden(!isHidden);
-      console.log('Wrong info!');
-    } else {
-      // Access the additional information about the user (e.g., Schueler_ID)
-      const schuelerID = foundStudent.Schueler_ID;
-      console.log('Schueler_ID:', schuelerID);
+  useEffect(() => {
+    if (authenticated) {
+      navigate('/HomePage'); // or '/HomePageAdmin' based on your requirements
     }
-  };
+  }, [authenticated, navigate]);
 
   return (
     <div className='login-holder'>
