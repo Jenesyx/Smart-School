@@ -10,10 +10,16 @@ function SideBar() {
                 <h2>Pro EduPage</h2>
             </div>
             <div className='menu'>
-                <div className="dashboard">
+                <div className="dashboard msame">
                     <img src={Home} alt="" />
                     <p>Dashboard</p>
                 </div>
+               <div class="onlyadmin">
+                    <div className="dailyreport msame">
+                        <img src={Home} alt="" />
+                        <p>Daily Report</p>
+                    </div>
+               </div>
             </div>
         </div>
     </>

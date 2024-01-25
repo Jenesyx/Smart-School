@@ -38,3 +38,15 @@
 .nav-mobile {
     display: none;
 }
+
+@media only screen and (max-width: 1600px) {
+    .nav .user {
+        font-size: 15px;
+        margin-left: 25px;
+    }
+
+    .welcome .welcometitle p {
+        font-size: 19px;
+        line-height: 50px;
+    }
+} 

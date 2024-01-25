@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
-function Login({ updateAppAuthenticated, updateUsername, updateId }) {
+function Login({ updateAppAuthenticated, updateUsername, updateId, updateToken }) {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -32,36 +32,40 @@ function Login({ updateAppAuthenticated, updateUsername, updateId }) {
   },[]);
 
   const checkInfo = () => {
-    let studentMatch = false;
-    studentData.forEach((item) => {
-      if (item.Nachname === username && item.Password === password) {
+    axios.post('http://localhost:4000/api/auth/login',{ username, password })
+    .then(response => {
+      const { data } = response;
+      updateToken(response.data.token);
+      console.log(`this is it ${response.data.token}`)
+      if (data.auth === true) {
         setAuthenticated(true);
         updateAppAuthenticated(true);
-        updateUsername(username)
-        updateId(item.Schueler_ID)
-        console.log('Student correct');
-        navigate('/HomePage');
-      }
-    });
-
-    if (!studentMatch) {
-      teacherData.forEach((item) => {
-        if (item.Username === username && item.Password === password) {
-          setAuthenticated(true);
-          updateAppAuthenticated(true);
-          updateUsername(username)
-          updateId(item.Lehrer_ID)
-          console.log('Teacher correct');
+        // Depending on the user role and response, navigate to the appropriate page
+        // Assuming you receive some indication of whether the user is a student or teacher
+        if (data.userRole === 'student') {
+          updateUsername(username);
+          updateId(data.userId); // Make sure backend sends userId
+          console.log('Student login successful');
+          navigate('/HomePage');
+        } else if (data.userRole === 'teacher') {
+          updateUsername(username);
+          updateId(data.userId); // Make sure backend sends userId
+          console.log('Teacher login successful');
           navigate('/HomePageAdmin');
+        } else {
+          // Handle other cases or errors
         }
-      });
-    }
-
-    if (!studentMatch) {
-      setIsHidden(!isHidden)
-      console.log('Wrong info!');
-    }
+      } else {
+        setIsHidden(!isHidden);
+        console.log('Login failed');
+      }
+    })
+    .catch(error => {
+      console.error('Login error:', error);
+      setIsHidden(!isHidden);
+    });
   };
+  
 
   return (
     <div className='login-holder'>

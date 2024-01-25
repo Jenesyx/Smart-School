@@ -10,7 +10,7 @@ import menu from '../../Images/menu2.png'
 import close from '../../Images/Close.png'
 
 
-function HomePage(props) {
+function HomePage({ mainUsername, token }) {
 
   const [dataMain, setDataMain] = useState([])
   const [dataCount, setDataCount] = useState([])
@@ -24,14 +24,18 @@ function HomePage(props) {
     setGoRight(!goRight);
     setHide(!hide)
   }
+  console.log("Token:", token);
 
-  console.log(`this is just a test!!!!!!!!!! ${props.userId}`) // test to get the dates for this user
+  console.log(`this is just a test!!!!!!!!!! ${mainUsername}`)
 
   const fetchData = (date) => {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+
     axios.get('http://localhost:4000/api/main', {
-      params: {
-        date: date.getTime()
-      }
+      headers: config.headers,
+      params: { date: date.getTime() }
     })
       .then((response) => {
         setDataMain(response.data);
@@ -41,7 +45,7 @@ function HomePage(props) {
         console.error('Error fetching "main" data:', error);
       });
 
-    axios.get('http://localhost:4000/api/Student')
+    axios.get('http://localhost:4000/api/Student', config)
       .then((response) => {
         setDataSchueler(response.data);
         console.log('Data for "Student":', response.data);
@@ -49,7 +53,7 @@ function HomePage(props) {
       .catch((error) => {
         console.error('Error fetching "Student" data:', error);
       });
-    axios.get('http://localhost:4000/api/anwesenheit')
+    axios.get('http://localhost:4000/api/anwesenheit', config)
       .then((response) => {
         setDataAnwesen(response.data);
         console.log('Data for "anwesenheit":', response.data);
@@ -57,7 +61,7 @@ function HomePage(props) {
       .catch((error) => {
         console.error('Error fetching "anwesenheit" data:', error);
       });
-    axios.get('http://localhost:4000/api/count')
+    axios.get('http://localhost:4000/api/count', config)
       .then((response) => {
         setDataCount(response.data);
         console.log('Data for "count":', response.data);
@@ -124,7 +128,7 @@ function HomePage(props) {
         <SideBar />
       </div>
       <div className='content-holder'>
-        <NavBar mainUsername={props.mainUsername} />
+        <NavBar mainUsername={mainUsername} />
         <Status
           dataMain={dataMain}
           dataCount={dataCount}

@@ -17,6 +17,7 @@ function App() {
   const [appAuthenticated, setAppAuthenticated] = useState(false);
   const [username, setUsername] = useState('')
   const [userId, setUserId] = useState('')
+  const [token, setToken] = useState('')
 
 
   const updateAppAuthenticated = (value) => {
@@ -31,6 +32,10 @@ function App() {
     setUserId(value)
   }
 
+  const updateToken = (value) => {
+    setToken(value)
+  }
+
 
   return (
     <div className="App">
@@ -41,7 +46,7 @@ function App() {
             element={
               <PrivateRoute
                 authenticated={appAuthenticated}
-                element={<HomePage mainUsername={username} userId={userId}/>}
+                element={<HomePage mainUsername={username} userId={userId} token={token}/>}
               />
             }
           />
@@ -56,11 +61,11 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Login updateAppAuthenticated={updateAppAuthenticated} updateUsername={updateUsername} updateId={updateId} />}
+            element={<Login updateAppAuthenticated={updateAppAuthenticated} updateUsername={updateUsername} updateId={updateId} updateToken={updateToken}/>}
           />
           <Route
             path="/"
-            element={<Login updateAppAuthenticated={updateAppAuthenticated} updateUsername={updateUsername} updateId={updateId}/>}
+            element={<Login updateAppAuthenticated={updateAppAuthenticated} updateUsername={updateUsername} updateId={updateId} updateToken={updateToken}/>}
             />
         </Routes>
       </Router>
