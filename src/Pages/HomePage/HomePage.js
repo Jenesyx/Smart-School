@@ -24,19 +24,16 @@ function HomePage({ mainUsername, token }) {
     setGoRight(!goRight);
     setHide(!hide)
   }
-  console.log("Token:", token);
 
   console.log(`this is just a test!!!!!!!!!! ${mainUsername}`)
 
   const fetchData = (date) => {
+    console.log("Fetching data with token:", token); // Log to verify token
     const config = {
       headers: { Authorization: `Bearer ${token}` }
     };
 
-    axios.get('http://localhost:4000/api/main', {
-      headers: config.headers,
-      params: { date: date.getTime() }
-    })
+    axios.get('http://localhost:4000/api/main', { headers: config.headers, params: { date: date.getTime() } })
       .then((response) => {
         setDataMain(response.data);
         console.log('Data for "main":', response.data);
