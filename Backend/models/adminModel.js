@@ -20,12 +20,11 @@ const AdminModel = {
                 if (error) {
                     return reject(error);
                 }
-                resolve(results[0]); // Assuming username is unique
+                resolve(results[0]); 
             });
         });
     },
 
-    // Additional methods as needed for your application
 };
 
 module.exports = AdminModel;
