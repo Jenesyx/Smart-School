@@ -55,7 +55,7 @@ function App() {
             element={
               <PrivateRoute
                 authenticated={appAuthenticated}
-                element={<HomePageAdmin mainUsername={username} />}
+                element={<HomePageAdmin mainUsername={username} userId={userId} token={token}/>}
               />
             }
           />
