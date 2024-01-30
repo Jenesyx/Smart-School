@@ -16,9 +16,9 @@
 
 .nav .user {
     letter-spacing: 0.4px;
-    font-size: 17px;
+    font-size: 15px !important;
     font-weight: 500;
-    width: 14%;
+    width: 18%;
 }
 
 .nav .welcome {

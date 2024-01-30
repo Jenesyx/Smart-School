@@ -122,7 +122,7 @@ function HomePage({ mainUsername, token }) {
         <img src={close} alt="close icon" onClick={handleIslandClick} />
       </div>
       <div className={`left ${goRight ? 'highlight' : ''}`}>
-        <SideBar />
+        <SideBar showAdminPerms = {false}/>
       </div>
       <div className='content-holder'>
         <NavBar mainUsername={mainUsername} />
