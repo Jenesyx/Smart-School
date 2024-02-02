@@ -80,6 +80,13 @@ function HomePage({ mainUsername, token }) {
     console.log(item)
   })
 
+  
+  // dataMain.map((item) => {
+  //   if(mainUsername == item.Nachname){
+
+  //   }
+  // })
+
   useEffect(() => {
     fetchData(date);
   }, [date]);
@@ -91,15 +98,23 @@ function HomePage({ mainUsername, token }) {
   }, [dataMain]);
 
   const getDateYesterday = () => {
-    const newDate = new Date(date);
-    newDate.setDate(newDate.getDate() - 1);
-    return newDate;
+    dataMain.map((item) => {
+      if(mainUsername == item.Nachname){
+        const newDate = new Date(date);
+        newDate.setDate(newDate.getDate() - 1);
+        return newDate;
+      }
+    })
   };
 
   const getDateTomorrow = () => {
-    const newDate = new Date(date);
-    newDate.setDate(newDate.getDate() + 1);
-    return newDate;
+    dataMain.map((item) => {
+      if(mainUsername == item.Nachname){
+        const newDate = new Date(date);
+        newDate.setDate(newDate.getDate() + 1);
+        return newDate;
+      }
+    })
   };
 
   if (dataMain == '') {
