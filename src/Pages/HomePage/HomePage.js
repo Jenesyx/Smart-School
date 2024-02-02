@@ -25,10 +25,7 @@ function HomePage({ mainUsername, token }) {
     setHide(!hide)
   }
 
-  console.log(`this is just a test!!!!!!!!!! ${mainUsername}`)
-
   const fetchData = (date) => {
-    console.log("Fetching data with token:", token); // Log to verify token
     const config = {
       headers: { Authorization: `Bearer ${token}` }
     };
@@ -80,13 +77,6 @@ function HomePage({ mainUsername, token }) {
     console.log(item)
   })
 
-  
-  // dataMain.map((item) => {
-  //   if(mainUsername == item.Nachname){
-
-  //   }
-  // })
-
   useEffect(() => {
     fetchData(date);
   }, [date]);
@@ -98,31 +88,16 @@ function HomePage({ mainUsername, token }) {
   }, [dataMain]);
 
   const getDateYesterday = () => {
-    dataMain.map((item) => {
-      if(mainUsername == item.Nachname){
-        const newDate = new Date(date);
-        newDate.setDate(newDate.getDate() - 1);
-        return newDate;
-      }
-    })
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() - 1);
+    return newDate;
   };
-
+  
   const getDateTomorrow = () => {
-    dataMain.map((item) => {
-      if(mainUsername == item.Nachname){
-        const newDate = new Date(date);
-        newDate.setDate(newDate.getDate() + 1);
-        return newDate;
-      }
-    })
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + 1);
+    return newDate;
   };
-
-  if (dataMain == '') {
-    console.log('nobody home')
-  }
-  if (dataMain != '') {
-    console.log(`This is dataMain: ${dataMain}`)
-  }
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
@@ -151,6 +126,7 @@ function HomePage({ mainUsername, token }) {
           onDateChange={setDate}
           getDateYesterday={getDateYesterday}
           getDateTomorrow={getDateTomorrow}
+          mainUsername={mainUsername}
         />
       </div>
     </>

@@ -4,7 +4,9 @@ import chevronLeft from '../../Images/chevron-left.png'
 import './DReport.css'
 
 function DReport(props) {
-    const { dataMain, date, onDateChange, getDateYesterday, getDateTomorrow } = props;
+    const { date, dataMain, onDateChange, getDateYesterday, getDateTomorrow, mainUsername } = props;
+
+    const filteredData = dataMain.filter(item => item.Nachname === mainUsername);
 
     return (
         <>
@@ -17,7 +19,7 @@ function DReport(props) {
                         <div className='chevron' onClick={() => onDateChange(getDateYesterday())}>
                             <img src={chevronLeft} alt="left" />
                         </div>
-                        <p>{date.toLocaleDateString()}</p>
+                        <p>{date && date.toLocaleDateString()}</p>
                         <div className='chevron'>
                             <img src={chevronRight} alt="right" onClick={() => onDateChange(getDateTomorrow())} />
                         </div>
@@ -26,17 +28,17 @@ function DReport(props) {
                         <ul>
                             <li>Username</li>
                             <li>Begin at</li>
-                             <li>Finish at</li>
+                            <li>Finish at</li>
                         </ul>
                     </div>
                     <div className="users-daily">
                         <div className={`noBodyHome ${dataMain == '' ? 'highlight' : ''}`}>NOTHING</div>
-                        {dataMain.map((item) => (
-                        <ul>
-                            <li>{item.Vorname} {item.Nachname}</li>
-                            <li>{item.Ankunftszeit}</li>
-                            <li>{item.Gangzeit}</li>
-                        </ul>
+                        {filteredData.map((item) => (
+                            <ul key={`${item.Schueler_ID}`}>
+                                <li>{item.Vorname} {item.Nachname}</li>
+                                <li>{item.Ankunftszeit}</li>
+                                <li>{item.Gangzeit}</li>
+                            </ul>
                         ))}
                     </div>
                 </div>
