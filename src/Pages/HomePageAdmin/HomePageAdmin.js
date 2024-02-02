@@ -125,6 +125,8 @@ function HomePage({ mainUsername, token }) {
           onDateChange={setDate}
           getDateYesterday={getDateYesterday}
           getDateTomorrow={getDateTomorrow}
+          mainUsername={mainUsername}
+          isAdmin={true}
         />
       </div>
     </>

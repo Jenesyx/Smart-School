@@ -4,9 +4,9 @@ import chevronLeft from '../../Images/chevron-left.png'
 import './DReport.css'
 
 function DReport(props) {
-    const { date, dataMain, onDateChange, getDateYesterday, getDateTomorrow, mainUsername } = props;
+    const { date, dataMain, onDateChange, getDateYesterday, getDateTomorrow, mainUsername, isAdmin } = props;
 
-    const filteredData = dataMain.filter(item => item.Nachname === mainUsername);
+    const filteredData = isAdmin ? dataMain : dataMain.filter(item => item.Nachname === mainUsername);
 
     return (
         <>
@@ -32,14 +32,14 @@ function DReport(props) {
                         </ul>
                     </div>
                     <div className="users-daily">
-                        <div className={`noBodyHome ${dataMain == '' ? 'highlight' : ''}`}>NOTHING</div>
-                        {filteredData.map((item) => (
-                            <ul key={`${item.Schueler_ID}`}>
-                                <li>{item.Vorname} {item.Nachname}</li>
-                                <li>{item.Ankunftszeit}</li>
-                                <li>{item.Gangzeit}</li>
-                            </ul>
-                        ))}
+                            <div className={`noBodyHome ${dataMain == '' ? 'highlight' : ''}`}>NOTHING</div>
+                            {filteredData.map((item) => (
+                                <ul key={item.Schueler_ID}>
+                                    <li>{item.Vorname} {item.Nachname}</li>
+                                    <li>{item.Ankunftszeit}</li>
+                                    <li>{item.Gangzeit}</li>
+                                </ul>
+                            ))}
                     </div>
                 </div>
             </div>

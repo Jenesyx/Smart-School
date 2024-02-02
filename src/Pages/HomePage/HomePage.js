@@ -127,6 +127,7 @@ function HomePage({ mainUsername, token }) {
           getDateYesterday={getDateYesterday}
           getDateTomorrow={getDateTomorrow}
           mainUsername={mainUsername}
+          
         />
       </div>
     </>
