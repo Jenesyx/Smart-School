@@ -1,0 +1,43 @@
+.single-user {
+    padding: 15px 20px;
+    background-color: #2F3349;
+    width: 250px;
+    height: 120px;
+    position: relative;
+    margin-top: 26px;
+    color: #CFD3EC;
+    border-radius: 8px;
+    display: flex;
+}
+
+.user-infos {
+    margin-top: 20px;
+    width: 60%;
+    font-weight: 600;
+    text-align: left;
+    line-height: 22px;
+}
+
+.buttons-holder {
+    width: 40%;
+    position: relative;
+}
+
+.buttons-holder div {
+    margin-top: 12px;
+    border-radius: 3px;
+    width: 100%;
+    height: 28px;
+    line-height: 28px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.come {
+    background-color: green;
+}
+
+.go {
+    background-color: red;
+}

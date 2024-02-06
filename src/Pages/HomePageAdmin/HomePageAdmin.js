@@ -6,6 +6,7 @@ import SideBar from '../../Components/Sidebar/SideBar'
 import NavBar from '../../Components/NavBar/NavBar'
 import Status from '../../Components/Status/Status'
 import DReport from '../../Components/DReport/DReport'
+import User from '../../Components/User/User'
 import menu from '../../Images/menu2.png'
 import close from '../../Images/Close.png'
 
@@ -19,6 +20,7 @@ function HomePage({ mainUsername, token }) {
   const [date, setDate] = useState(new Date());
   const [goRight, setGoRight] = useState(false)
   const [hide, setHide] = useState(false)
+  const [activeView, setActiveView] = useState('Dashboard');
 
   const handleIslandClick = () => {
     setGoRight(!goRight);
@@ -111,23 +113,14 @@ function HomePage({ mainUsername, token }) {
         <img src={close} alt="close icon" onClick={handleIslandClick} />
       </div>
       <div className={`left ${goRight ? 'highlight' : ''}`}>
-        <SideBar showAdminPerms = {true} />
+        <SideBar showAdminPerms = {true} setActiveView={setActiveView}/>
       </div>
       <div className='content-holder'>
-        <NavBar mainUsername={mainUsername}/>
-        <Status
-          dataMain={dataMain}
-          dataCount={dataCount}
-        />
-        <DReport
-          dataMain={dataMain}
-          date={date}
-          onDateChange={setDate}
-          getDateYesterday={getDateYesterday}
-          getDateTomorrow={getDateTomorrow}
-          mainUsername={mainUsername}
-          isAdmin={true}
-        />
+      <NavBar mainUsername={mainUsername} />
+        {activeView === 'Dashboard' && <Status dataMain={dataMain} dataCount={dataCount} />}
+        {activeView === 'Dashboard' && <DReport dataMain={dataMain} date={date} onDateChange={setDate} getDateYesterday={getDateYesterday} getDateTomorrow={getDateTomorrow} mainUsername={mainUsername} isAdmin={true} />}
+        {activeView === 'View' && <DReport dataMain={dataMain} date={date} onDateChange={setDate} getDateYesterday={getDateYesterday} getDateTomorrow={getDateTomorrow} mainUsername={mainUsername} isAdmin={true} />}
+        {activeView === 'List' && <User/>}
       </div>
     </>
   )

@@ -40,20 +40,18 @@ function Login({ updateAppAuthenticated, updateUsername, updateId, updateToken }
       if (data.auth === true) {
         setAuthenticated(true);
         updateAppAuthenticated(true);
-        // Depending on the user role and response, navigate to the appropriate page
-        // Assuming you receive some indication of whether the user is a student or teacher
         if (data.userRole === 'student') {
           updateUsername(username);
-          updateId(data.userId); // Make sure backend sends userId
+          updateId(data.userId);
           console.log('Student login successful');
           navigate('/HomePage');
         } else if (data.userRole === 'teacher') {
           updateUsername(username);
-          updateId(data.userId); // Make sure backend sends userId
+          updateId(data.userId);
           console.log('Teacher login successful');
           navigate('/HomePageAdmin');
         } else {
-          // Handle other cases or errors
+          console.log('User/Admin Login error!');
         }
       } else {
         setIsHidden(!isHidden);

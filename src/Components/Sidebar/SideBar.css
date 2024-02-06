@@ -43,7 +43,6 @@
     width: 80%;
     height: 35px;
     border-radius: 6px;
-    background: linear-gradient(to right, rgba(115, 103, 240, 0.6) 0%, rgba(115, 103, 240, 0.8) 100%);
 }
 
 .msame:hover {
@@ -114,4 +113,8 @@
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
+}
+
+.msame.active {
+    background: linear-gradient(to right, rgba(115, 103, 240, 0.6) 0%, rgba(115, 103, 240, 0.8) 100%);
 }
