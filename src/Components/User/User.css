@@ -32,12 +32,23 @@
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 .come {
-    background-color: green;
+    background: linear-gradient(to right, rgba(115, 103, 240, 0.6) 0%, rgba(115, 103, 240, 0.8) 100%);
+}
+
+.come:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: inset 2px 2px 5px rgba(255,255,255,0.4),
+    2px 2px 2px 1px rgba(0,0,0,0.3);
 }
 
 .go {
-    background-color: red;
+    border: 1px solid #7367f099;
+}
+
+.go:hover {
+    border-radius: 15px;
 }

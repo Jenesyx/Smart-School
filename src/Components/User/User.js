@@ -1,16 +1,16 @@
 import React from 'react'
 import './User.css'
 
-function User(props) {
+function User({ Vorname, Nachname, onComeClick, onGoClick, schuelerId }) {
   return (
     <div className='single-user'>
       <div className='user-infos'>
-        <p>{props.Vorname}</p>
-        <p>{props.Nachname}</p>
+        <p>{Vorname}</p>
+        <p>{Nachname}</p>
       </div>
       <div className='buttons-holder'>
-        <div className="come">Come</div>
-        <div className="go">Go</div>
+        <div className="come" onClick={() => onComeClick(schuelerId)}>Come</div>
+        <div className="go" onClick={() => onGoClick(schuelerId)}>Go</div>
       </div>
     </div>
   )

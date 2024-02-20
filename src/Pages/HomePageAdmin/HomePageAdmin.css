@@ -11,6 +11,12 @@
     position: relative;
 }
 
+.user-holder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 @media only screen and (max-width: 520px) {
     body {
         max-width: 440px;

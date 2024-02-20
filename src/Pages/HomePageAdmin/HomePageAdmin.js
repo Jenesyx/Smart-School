@@ -104,6 +104,44 @@ function HomePage({ mainUsername, token }) {
     setDate(newDate);
   };
 
+  const handleComeClick = (schuelerId) => {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const payload = {
+      schuelerId,
+      time: new Date(),
+    };
+
+    axios.post('http://localhost:4000/api/anwesenheit/come', payload, config)
+      .then(response => {
+        console.log('Come time recorded', response.data);
+      })
+      .catch(error => {
+        console.error('Error recording come time', error);
+      });
+  };
+
+  const handleGoClick = (schuelerId) => {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+
+    const payload = {
+      schuelerId,
+      time: new Date(),
+    };
+
+    axios.post('http://localhost:4000/api/anwesenheit/go', payload, config)
+      .then(response => {
+        console.log('Go time recorded', response.data);
+      })
+      .catch(error => {
+        console.error('Error recording go time', error);
+      });
+  };
+
   return (
     <>
       <div className={`hamb ${hide ? 'highlight' : ''}`}>
@@ -120,7 +158,18 @@ function HomePage({ mainUsername, token }) {
         {activeView === 'Dashboard' && <Status dataMain={dataMain} dataCount={dataCount} />}
         {activeView === 'Dashboard' && <DReport dataMain={dataMain} date={date} onDateChange={setDate} getDateYesterday={getDateYesterday} getDateTomorrow={getDateTomorrow} mainUsername={mainUsername} isAdmin={true} />}
         {activeView === 'View' && <DReport dataMain={dataMain} date={date} onDateChange={setDate} getDateYesterday={getDateYesterday} getDateTomorrow={getDateTomorrow} mainUsername={mainUsername} isAdmin={true} />}
-        {activeView === 'List' && <User/>}
+        <div className='user-holder'>
+          {activeView === 'List' && dataSchueler.map((item) => (
+            <User 
+              key={item.Schueler_ID} 
+              Vorname={item.Vorname} 
+              Nachname={item.Nachname} 
+              onComeClick={handleComeClick} 
+              onGoClick={handleGoClick}
+              schuelerId={item.Schueler_ID}
+            />
+          ))}
+        </div>
       </div>
     </>
   )
